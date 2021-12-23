@@ -1,12 +1,11 @@
+const router = require("express").Router();
+const userModel = require("../models/userModel");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
 // const cryptoJS = require("crypto-js");
-const userModel = require("../models/userModel");
-
-const router = require("express").Router();
 
 // UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
@@ -76,7 +75,7 @@ router.get("/stat", verifyTokenAndAdmin, async (req, res) => {
       { $project: { month: { $month: "$createdAt" } } },
       { $group: { _id: "$month", total: { $sum: 1 } } },
     ]);
-    res.status(200).json(data)
+    res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
   }

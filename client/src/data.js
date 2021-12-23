@@ -34,16 +34,19 @@ export const categories = [
     id: 1,
     img: "./files/jumping-dancers-768x577-1.jpg",
     title: "UNDERWEAR",
+    cat: "women",
   },
   {
     id: 2,
     img: "./files/groupcolorCourtesysddt.jpg",
     title: "DREAM DANCE",
+    cat: "coats",
   },
   {
     id: 3,
     img: "./files/dance_styles.jpg",
     title: "COLOMBA DANCE",
+    cat: "jeans",
   },
 ];
 

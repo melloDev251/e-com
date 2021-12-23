@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { mobile } from '../responsive';
+import { mobile } from "../responsive";
+import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -14,8 +15,7 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
 
-  ${mobile({ height:"30vh", width:"108.5vw", margin:"-5px 0px -6px -35px"})}
-
+  ${mobile({ height: "30vh", width: "108.5vw", margin: "-5px 0px -6px -35px" })}
 `;
 
 const Info = styled.div`
@@ -34,7 +34,7 @@ const Title = styled.h1`
   color: white;
   margin-bottom: 20px;
 
-  ${mobile({ fontSize:"30px"})}
+  ${mobile({ fontSize: "30px" })}
 
   &:hover {
     letter-spacing: 4px;
@@ -51,8 +51,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 0.5s ease;
 
-  /* ${mobile({ fontSize:"11px", borderRadius:"10%"})} */
-
+  /* ${mobile({ fontSize: "11px", borderRadius: "10%" })} */
 
   &:hover {
     /* color: white;
@@ -67,18 +66,20 @@ const Button = styled.button`
     transform: scale(1.1);
     color: white;
     letter-spacing: 4px;
-    border: 2px solid white ;
+    border: 2px solid white;
   }
 `;
 
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
-      <Info>
-        <Title> {item.title} </Title>
-        <Button>SHOP NOW</Button>
-      </Info>
+      <NavLink to={`/product-list/${item.cat}`}>
+        <Image src={item.img} />
+        <Info>
+          <Title> {item.title} </Title>
+          <Button>SHOP NOW</Button>
+        </Info>
+      </NavLink>
     </Container>
   );
 };
