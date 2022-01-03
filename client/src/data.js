@@ -1,28 +1,25 @@
 export const sliderItems = [
   {
     id: 1,
-    // img: "./media/img-1.png",
-    img: "./files/509-5095525_dancer-png-hip-hop-style-dance-png-transparent-removebg-preview.png",
-    title: "ROOM DANCE",
+    img: "https://i.ibb.co/H4DrQtD/robe-dallaitement-noir-fleurs-blanches-maternite-yi018-5-fcf1-removebg-preview.png",
+    title: "CLASSIC DRESS",
     description:
       " Lorem ipsum dolor sit amet consectetur adipisicing elitdolor quidem possimus quaerat mollitia laudantium nostrum odioadipisci dolorem autem modi et itaque rem voluptatum nequelaboriosam nihil, earum error vero obcaecati provident numquam, aodit? Minima corrupti aperiam fugiat qui praesentium exconsequuntur eaque, repellat, aut, molestias dignissimos? Officia.",
     bg: "f5fafd",
   },
   {
     id: 2,
-    // img: "./media/img-2.png",
-    img: "./files/dancer_PNG103.png",
-    title: "STREET DANCE",
+    img: "https://i.ibb.co/b6SHvWF/Robe-cache-coeur-ceinture-et-volants-imprime-coquelicots-e105-7-removebg-preview.png",
+    title: "WRAP DRESS",
     description:
       " Lorem ipsum dolor sit amet consectetur adipisicing elitdolor quidem possimus quaerat mollitia laudantium nostrum odioadipisci dolorem autem modi et itaque rem voluptatum nequelaboriosam nihil, earum error vero obcaecati provident numquam, aodit? Minima corrupti aperiam fugiat qui praesentium exconsequuntur eaque, repellat, aut, molestias dignissimos? Officia.",
     bg: "fcf1ed",
   },
   {
     id: 3,
-    // img: "./media/img-3.png",
-    img: "./files/depositphotos_1142337-stock-photo-attractive-young-woman-dancing-removebg-preview.png",
+    img: "https://i.ibb.co/dLp9RSF/jeans-917145-2179288-removebg-preview.png",
 
-    title: "BALLERINA DANCE",
+    title: "STYLISH JEANS",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elitdolor quidem possimus quaerat mollitia laudantium nostrum odioadipisci dolorem autem modi et itaque rem voluptatum nequelaboriosam nihil, earum error vero obcaecati provident numquam, aodit? Minima corrupti aperiam fugiat qui praesentium exconsequuntur eaque, repellat, aut, molestias dignissimos? Officia.",
     bg: "fbf4d7",
@@ -32,55 +29,68 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    img: "./files/jumping-dancers-768x577-1.jpg",
-    title: "UNDERWEAR",
-    cat: "women",
+    img: "http://sc04.alicdn.com/kf/H4abd84aad9f942d6ae603fd9c786a144Z.jpg",
+    title: "JEANS STYLE",
+    cat: "jeans",
   },
   {
     id: 2,
-    img: "./files/groupcolorCourtesysddt.jpg",
-    title: "DREAM DANCE",
-    cat: "coats",
+    img: "https://static.independent.co.uk/2021/03/29/16/denim.jpg?width=1200&auto=webp&quality=75",
+    // img: "https://img.ltwebstatic.com/images2_pi/2018/08/07/15336331752937896026_thumbnail_600x799.webp",
+    title: "WOMEN'S LOVE",
+    cat: "women",
   },
   {
     id: 3,
-    img: "./files/dance_styles.jpg",
-    title: "COLOMBA DANCE",
-    cat: "jeans",
+    img: "https://www.comptoir-irlandais.com/21704-large_default/duffle-coat-zippe-fiona-cerise-london-tradition.jpg",
+    title: "LIGHT JACKETS",
+    cat: "coat",
+  },
+  {
+    id: 4,
+    img: "https://media.newyorker.com/photos/6143704cfcc063816390979a/16:9/w_2016,h_1134,c_limit/210927_r39060.jpg",
+    title: "SHIRT TOOLS",
+    cat: "shirt",
+  },
+  {
+    id: 5,
+    img: "http://cdn.luxuo.com/2017/08/Classic-Mens-Style-and-the-New-Rules-of-Classic-Elegance-549x550.jpg",
+    title: "MEN'S SHOP",
+    cat: "men",
   },
 ];
 
 export const popularProducts = [
   {
     id: 1,
-    img: "./files/dance-categories.png",
+    img: "https://i.ibb.co/fCJJ8P5/robe-fluide-fille-removebg-preview.png",
   },
   {
     id: 2,
-    img: "./files/45-451941_transparent-hiphop-png-dance-style-png-png-download-removebg-preview.png",
+    img: "https://i.ibb.co/VjLMxsz/tshirt-removebg-preview.png",
   },
   {
     id: 3,
-    img: "./files/509-5095525_dancer-png-hip-hop-style-dance-png-transparent-removebg-preview.png",
+    img: "https://i.ibb.co/Dk1xqzb/s-l400-removebg-preview.png",
   },
   {
     id: 4,
-    img: "./files/ballerina-2821503_960_720.png",
+    img: "https://i.ibb.co/Pzw0CFQ/61y-U567o-XJL-AC-UL1230-removebg-preview.png",
   },
   {
     id: 5,
-    img: "./files/dancer_PNG103.png",
+    img: "https://i.ibb.co/jLpqzt2/1053268206-ML-NOPAD-removebg-preview.png",
   },
   {
     id: 6,
-    img: "./files/woman-1602427_960_720.png",
+    img: "https://i.ibb.co/8DZPnqp/sac-a-main-cuir-effet-croco-katana-noir-pas-cher-removebg-preview.png",
   },
   {
     id: 7,
-    img: "./files/depositphotos_1142337-stock-photo-attractive-young-woman-dancing-removebg-preview.png",
+    img: "https://i.ibb.co/LZwZhPT/casquette-new-york-verte-removebg-preview.png",
   },
   {
     id: 8,
-    img: "./files/deguisement-femme-danseuse-orientale-removebg-preview.png",
+    img: "https://i.ibb.co/vjhBXNN/veste-d-t-femme-rouge-a-la-doublure-a-pois-resized-removebg-preview.png",
   },
 ];

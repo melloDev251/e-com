@@ -1,11 +1,16 @@
 import { Add, Remove } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 import styled from "styled-components";
 import Annonce from "../components/Annonce";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import ScrollButton from "../components/ScrollButton";
 import { mobile } from "../responsive";
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -118,7 +123,6 @@ const ProductPrice = styled.div`
   font-weight: 200;
 
   ${mobile({ marginBottom: "30px" })}
-
 `;
 
 const Summary = styled.div`
@@ -157,6 +161,15 @@ const Hr = styled.hr`
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  console.log(stripeToken);
+ 
   return (
     <Container>
       <NavBar />
@@ -164,76 +177,57 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <NavLink to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </NavLink>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist(2)</TopText>
+            <TopText>Shopping Bag ()</TopText>
+            <TopText>Your Wishlist (2)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="../files/depositphotos_1142337-stock-photo-attractive-young-woman-dancing-removebg-preview.png" />
-                <Details>
-                  <ProductName>
-                    {" "}
-                    <b>Product : </b>HOOD & SHOES
-                  </ProductName>
-                  <ProductID>
-                    {" "}
-                    <b>ID : </b>49464484
-                  </ProductID>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size : </b>37.5
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="../files/dance-categories.png" />
-                <Details>
-                  <ProductName>
-                    {" "}
-                    <b>Product : </b>JOGGING
-                  </ProductName>
-                  <ProductID>
-                    {" "}
-                    <b>ID : </b>78951658
-                  </ProductID>
-                  <ProductColor color="grey" />
-                  <ProductSize>
-                    <b>Size : </b>M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>3</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 55</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((product) => (
+              <>
+                <Product>
+                  <ProductDetail>
+                    <Image src={product.img} />
+                    <Details>
+                      <ProductName>
+                        {" "}
+                        <b>Product : </b> {product.title}
+                      </ProductName>
+                      <ProductID>
+                        {" "}
+                        <b>ID : </b> {product._id}
+                      </ProductID>
+                      <ProductColor color={product.color} />
+                      <ProductSize>
+                        <b>Size : </b> {product.size}
+                      </ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Add />
+                      <ProductAmount> {product.quantity} </ProductAmount>
+                      <Remove />
+                    </ProductAmountContainer>
+                    <ProductPrice>
+                      $ {product.price * product.quantity}{" "}
+                    </ProductPrice>
+                  </PriceDetail>
+                </Product>
+                <Hr />
+              </>
+            ))}
           </Info>
           <Summary>
             <SummuryTitle>ORDER SUMMARY</SummuryTitle>
             <SummuryItem>
               <SummuryItemText>Subtotal</SummuryItemText>
-              <SummuryItemPrice>$ 75</SummuryItemPrice>
+              <SummuryItemPrice>$ {cart.total} </SummuryItemPrice>
             </SummuryItem>
             <SummuryItem>
               <SummuryItemText>Estimated Shipping</SummuryItemText>
@@ -245,14 +239,25 @@ const Cart = () => {
             </SummuryItem>
             <SummuryItem type="total">
               <SummuryItemText>Total</SummuryItemText>
-              <SummuryItemPrice>$ 55</SummuryItemPrice>
+              <SummuryItemPrice>$ {cart.total} </SummuryItemPrice>
             </SummuryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Wesh shop"
+              image="https://i.ibb.co/TgbKcVw/user-account-avatar-icon-pictogram-260nw-1860375778-1-removebg-preview.png"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
       <Footer />
-      <ScrollButton/>
+      <ScrollButton />
     </Container>
   );
 };

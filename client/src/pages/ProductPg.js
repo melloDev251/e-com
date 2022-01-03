@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Annonce from "../components/Annonce";
 import Footer from "../components/Footer";
@@ -8,6 +8,10 @@ import Newsletter from "../components/Newsletter";
 import { NavLink } from "react-router-dom";
 import { mobile } from "../responsive";
 import ScrollButton from "../components/ScrollButton";
+import { useLocation } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
+import { addProduct } from "../redux/CartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -20,9 +24,18 @@ const ImgContainer = styled.div`
   flex: 1;
 `;
 const Image = styled.img`
-  width: 100%;
+  width: 95%;
   height: 90vh;
   object-fit: cover;
+
+  transition: transform 0.25s ease;
+  cursor: zoom-in;
+
+  &:active {
+    -webkit-transform: scale(1);
+    transform: scale(1.1);
+    cursor: zoom-out;
+  }
 
   ${mobile({ height: "40vh" })}
 `;
@@ -85,6 +98,7 @@ const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  cursor: pointer;
 `;
 const Amount = styled.span`
   width: 30px;
@@ -109,52 +123,81 @@ const Button = styled.button`
 `;
 
 const ProductPg = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+        setProduct(res.data);
+      } catch (error) {}
+    };
+    getProducts();
+  }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({
+        ...product,
+        quantity,
+        color,
+        size,
+      })
+    );
+  };
+
   return (
     <Container>
       <NavBar />
       <Annonce />
       <Wrapper>
         <ImgContainer>
-          <Image src="../files/dance_styles.jpg" />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>John Doe</Title>
-          <Desc>
-            {" "}
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-            a accusamus id illo dolore? Inventore modi ex assumenda dolorum odio
-            eveniet molestias accusamus id vitae vero unde nostrum non aut,
-            corporis obcaecati suscipit laboriosam eligendi debitis quam
-            pariatur voluptate nemo.{" "}
-          </Desc>
-          <Price>$ 20</Price>
+          <Title> {product.title} </Title>
+          <Desc>{product.desc}</Desc>
+          <Price> {product.price} $</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
+              {product.color?.map((c) => (
+                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-                <FilterSizeOption>XXL</FilterSizeOption>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}> {s} </FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("dec")} />
+              <Amount> {quantity} </Amount>
+              <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <NavLink to="/cart">
-              <Button>ADD TO CART</Button>
+            <NavLink to="">
+              <Button onClick={handleClick}>ADD TO CART</Button>
             </NavLink>
           </AddContainer>
         </InfoContainer>

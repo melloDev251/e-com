@@ -79,14 +79,16 @@ const ProductItem = ({ item }) => {
       <Circle />
       <Image src={item.img} />
       <Info>
-        <NavLink to="/product-page" style={{ color: "black" }}>
+        <NavLink to="" style={{ color: "black" }}>
           <Icon>
             <ShoppingCartOutlined />
           </Icon>
         </NavLink>
-        <Icon>
-          <Search />
-        </Icon>
+        <NavLink to={`/product-page/${item._id}`} style={{ color: "black" }}>
+          <Icon>
+            <Search />
+          </Icon>
+        </NavLink>
         <Icon>
           <FavoriteBorder />
         </Icon>

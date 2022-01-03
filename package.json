@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
@@ -21,6 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "kill-port": "^1.6.1",
     "mongoose": "^5.12.13",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "stripe": "^8.194.0",
     "webidl-conversions": "^7.0.0"

@@ -7,6 +7,7 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
+import ScrollButton from "../components/ScrollButton";
 
 const Container = styled.div``;
 const Title = styled.h1`
@@ -45,6 +46,7 @@ const ProductList = () => {
   const [sort, setSort] = useState("newest");
 
   const handleFilters = (e) => {
+    e.preventDefault();
     const value = e.target.value;
 
     setFilter({ ...filter, [e.target.name]: value });
@@ -55,18 +57,18 @@ const ProductList = () => {
     <Container>
       <NavBar />
       <Annonce />
-      <Title>Dresses</Title>
+      <Title> Category : {cat} </Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products :</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option>Color</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
-            <Option>White</Option>
+            <Option>black</Option>
+            <Option>red</Option>
+            <Option>blue</Option>
+            <Option>yellow</Option>
+            <Option>green</Option>
+            <Option>white</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option>Size</Option>
@@ -83,11 +85,12 @@ const ProductList = () => {
           <Select onChange={(e) => setSort(e.target.value)}>
             <Option value="newest">Newest</Option>
             <Option value="asc">Price (asc)</Option>
-            <Option value="dsc">Price (desc)</Option>
+            <Option value="desc">Price (desc)</Option>
           </Select>
         </Filter>
       </FilterContainer>
       <Products cat={cat} filter={filter} sort={sort} />
+      <ScrollButton />
       <Newsletter />
       <Footer />
     </Container>
