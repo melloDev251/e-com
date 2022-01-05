@@ -1,13 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import styled from "styled-components";
 import Annonce from "../components/Annonce";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import ScrollButton from "../components/ScrollButton";
+import { userRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 
 const KEY = process.env.REACT_APP_STRIPE;
@@ -164,12 +165,25 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
 
+  const navigate = useNavigate();
+
   const onToken = (token) => {
     setStripeToken(token);
   };
 
-  console.log(stripeToken);
- 
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: 500,
+        });
+        navigate.push("/success", { data: res.data });
+      } catch (error) {}
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, navigate, cart.total]);
+
   return (
     <Container>
       <NavBar />
@@ -242,8 +256,8 @@ const Cart = () => {
               <SummuryItemPrice>$ {cart.total} </SummuryItemPrice>
             </SummuryItem>
             <StripeCheckout
-              name="Wesh shop"
-              image="https://i.ibb.co/TgbKcVw/user-account-avatar-icon-pictogram-260nw-1860375778-1-removebg-preview.png"
+              name="Wesh Shop"
+              image="https://i.ibb.co/vVFV0vM/pose.png"
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
